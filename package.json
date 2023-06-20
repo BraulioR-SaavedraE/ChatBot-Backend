@@ -1,0 +1,30 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "ENV=dev mocha \"./{,!(node_modules)/**/}*.test.js\"",
+    "test-watch": "ENV=dev nodemon --exec 'npm test'",
+    "dev": "ENV=dev nodemon src/app.js",
+    "prod": "ENV=prod node src/app.js"
+  },
+  "author": "Braulio Rubén Saavedra Escalona",
+  "license": "ISC",
+  "dependencies": {
+    "@nlpjs/basic": "^4.26.1",
+    "@nlpjs/qna-importer": "^4.22.7",
+    "custom-env": "^2.0.2",
+    "express": "^4.18.2",
+    "mongodb": "^5.3.0",
+    "node-nlp": "^4.26.1",
+    "react-dom": "^18.2.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "@sinonjs/referee": "^10.0.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sinon": "^15.1.0",
+    "supertest": "^6.3.3"
+  }
+}

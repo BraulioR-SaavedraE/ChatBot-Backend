@@ -1,0 +1,4 @@
+.vscode
+.env.dev
+muestra.json
+node_modules
