@@ -44,8 +44,38 @@ const readSites = async(answer) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+/**
+* Función que busca las 3 preguntas más frecuentes de la base de datos.
+*
+* @returns {Object} Array
+* Las preguntas más frecuentes que a lo más serán 3.
+*/
+const readFrequentQuestions = async() => {
+  try {
+    const collection = await getCollection();
+    const cursor =  await collection.find({}).sort({"visitas":1}).project({pregunta: 1, _id: 0}).limit(3);
+    const selectedQuestions = cursor.toArray();
+
+    return selectedQuestions;
+  } catch (error) {
+    throw error;
+  }
+}; 
+
+/**
+* Función que agrega una visita a una pregunta con su respectiva respuesta.
+*/
+const addView = async(answer) => {
+  const collection = await getCollection();
+  const views = await collection.findOne({respuesta: answer}, {projection: {"vistas": 1}});
+  const vistas = views['vistas'];
+  collection.updateOne({respuesta: answer},  {$set:{"vistas": vistas + 1}});
+};
 
 module.exports = {
-    readSites: readSites
+    readSites: readSites,
+    readFrequentQuestions: readFrequentQuestions,
+    addView: addView
 };

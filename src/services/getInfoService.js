@@ -1,5 +1,6 @@
 const getAnswer = require('./getAnswerService').getAnswer;
 const getSites = require('./getSitesService').getSites;
+const addView = require('./addViewService').addView;
 
 /**
 * Función que recolecta la respuesta a una entrada del usuario y los sitios web asociados a ésta.
@@ -17,6 +18,7 @@ const getInfo = async (utterance) => {
     try {
         if(answer) {
             sites = await getSites(answer);
+            addView(answer);
         } else {
             answer = 'No entendí, ¿podrías decírmelo con otras palabras, por favor?';
             sites = [];
