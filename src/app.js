@@ -11,14 +11,14 @@ const PORT = process.env.SERVER_PORT;
 
 const app = express();
 
-// Endpoint que da una respuesta según un enunciado dado por el usuario y un conjunto de
-// sitios web asociados a la respuesta.
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
+// Endpoint que da una respuesta según un enunciado dado por el usuario y un conjunto de
+// sitios web asociados a la respuesta.
 app.get('/',async(req, res) => {
     if(!req.query.utterance) {
         return res.status(400).json({error: 'Deberías escribir algo para que el chatbot intente contestar.'});
@@ -28,6 +28,7 @@ app.get('/',async(req, res) => {
     }
 });
 
+// endpoint para recuperar las 3 preguntas más frecuentes que tiene la base de datos.
 app.get('/fq', async(req, res) => {
     const questions = await getQuestions();
     res.status(200).json({questions});
