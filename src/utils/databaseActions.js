@@ -55,9 +55,8 @@ const readSites = async(answer) => {
 const readFrequentQuestions = async() => {
   try {
     const collection = await getCollection();
-    const cursor =  await collection.find({}).sort({"visitas":1}).project({pregunta: 1, _id: 0}).limit(3);
+    const cursor =  await collection.find({}).sort({vistas:-1}).limit(3).project({pregunta: 1, _id: 0});
     const selectedQuestions = cursor.toArray();
-
     return selectedQuestions;
   } catch (error) {
     throw error;
