@@ -29,7 +29,6 @@ const getCollection = async() => {
 
 /**
 * Función que busca los sitios web asociados a una respuesta.
-* Asumimos que answer siempre corresponde a una respuesta en la base de datos
 *
 * @param {string} answer - La respuesta que dio el bot
 *
@@ -38,8 +37,12 @@ const getCollection = async() => {
 */
 const readSites = async(answer) => {
   try {
+    console.log(answer);
     const collection = await getCollection();
     const findResult = await collection.findOne({ respuesta: answer }, { projection: { "sitios de interes": 1 } });
+    if(!findResult)
+      throw new Error("No se ha encontrado datos asociados a esa respuesta.");
+    
     return findResult.hasOwnProperty('sitios de interes') ? findResult['sitios de interes'] : [];
   } catch (error) {
     throw error;
